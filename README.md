@@ -44,6 +44,7 @@ flowchart LR
 - **Conservative failure handling**: 오류 발생 시 물체를 들고 있을 가능성이 있으면 임의 위치에 놓지 않고 자동 동작을 멈춥니다.
 
 자세한 설계와 안전 불변조건은 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)에 정리했습니다.
+선택한 방법의 이유와 대안은 [docs/ENGINEERING_DECISIONS.md](docs/ENGINEERING_DECISIONS.md)에 정리했습니다.
 
 ## Repository structure
 
