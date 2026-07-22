@@ -8,13 +8,13 @@ YOLOv8 인스턴스 세그멘테이션과 카메라-로봇 좌표 보정을 이�
 
 ## Demo
 
-영상과 시스템 사진은 실제 재실험 후 추가할 예정입니다.
+<a href="assets/demo.mp4">
+  <img src="assets/demo-poster.jpg" alt="Dobot Magician Lite sorting colored blocks" width="360">
+</a>
 
-- `assets/demo.gif`: 전체 자동 선별 과정
-- `assets/system-overview.jpg`: 카메라·Dobot·작업 영역 구성
-- `assets/detection-result.jpg`: 마스크·클래스·각도 시각화
+대표 이미지를 누르면 64초 분량의 [실제 장비 동작 영상](assets/demo.mp4)이 열립니다. 영상은 Dobot Magician Lite, 고정 카메라, 작업 영역의 블록과 클래스별 분류함으로 구성된 프로토타입 환경을 보여줍니다.
 
-파일을 추가하는 방법은 [assets/README.md](assets/README.md)를 참고하세요.
+현재 영상은 물리 시스템의 동작 증거이며, 모델 정확도나 배치 정밀도를 입증하는 정량 실험은 아닙니다. 추후 추론 화면과 실험 결과 이미지는 [assets/README.md](assets/README.md)의 안내에 따라 추가할 예정입니다.
 
 ## Problem
 
