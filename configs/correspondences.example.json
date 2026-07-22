@@ -1,0 +1,9 @@
+{
+  "camera": {
+    "center_robot_mm": [241.0, 0.0],
+    "height_mm": 350.0
+  },
+  "object_height_mm": 20.0,
+  "calibration_points": [],
+  "validation_points": []
+}

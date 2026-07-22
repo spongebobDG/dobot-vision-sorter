@@ -1,0 +1,60 @@
+model:
+  weights: models/best.pt
+  confidence: 0.50
+  device: auto
+
+camera:
+  index: 2
+  width: 640
+  height: 640
+  warmup_frames: 10
+
+robot:
+  port: COM3
+  move_speed: 150
+  descend_speed: 80
+  safe_z: 120.0
+  home_pose: [241.0, 0.0, 149.0, 0.0]
+  pick_z: -13.0
+  release_clearance_z: 3.0
+  rotation_step_degrees: 15.0
+
+workspace:
+  min_x: 80.0
+  max_x: 335.0
+  min_y: -300.0
+  max_y: 300.0
+  min_z: -30.0
+  max_z: 200.0
+  max_reach: 335.0
+  min_r: -90.0
+  max_r: 90.0
+  pick_zone: [120.0, 325.0, -110.0, 110.0]
+
+calibration:
+  file: calibration/calibration.json
+
+objects:
+  height_mm: 20.0
+  near_square_ratio: 1.08
+
+placement:
+  normal:
+    origin: [270.0, 150.0, -15.0, 0.0]
+    rows: 4
+    columns: 1
+    row_step: [-30.0, 0.0]
+    column_step: [0.0, 0.0]
+  defect:
+    origin: [270.0, -150.0, -15.0, 0.0]
+    rows: 4
+    columns: 1
+    row_step: [-30.0, 0.0]
+    column_step: [0.0, 0.0]
+  feedback:
+    enabled: false
+    max_attempts: 5
+    position_tolerance_mm: 2.0
+    angle_tolerance_degrees: 3.0
+    search_radius_mm: 45.0
+    gain: 0.5

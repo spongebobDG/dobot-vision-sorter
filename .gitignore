@@ -1,0 +1,35 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local hardware and experiment artifacts
+calibration/*.json
+!calibration/*.example.json
+configs/local.yaml
+models/*.pt
+runs/
+outputs/
+logs/
+
+# Datasets and large media
+data/raw/
+data/processed/
+data/train/
+data/valid/
+data/val/
+data/test/
+assets/raw/
+assets/*.mov
+assets/*.avi
+assets/*.zip
+*.zip
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

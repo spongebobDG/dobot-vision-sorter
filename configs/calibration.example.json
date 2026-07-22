@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "homography": [
+    [1.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0],
+    [0.0, 0.0, 1.0]
+  ],
+  "camera": {
+    "center_robot_mm": [241.0, 0.0],
+    "height_mm": 350.0
+  },
+  "object_height_mm": 20.0,
+  "calibration": {
+    "points": 0,
+    "inliers": 0
+  },
+  "validation": {
+    "points": 0,
+    "mean_mm": null,
+    "p95_mm": null,
+    "max_mm": null,
+    "passed": false
+  }
+}
