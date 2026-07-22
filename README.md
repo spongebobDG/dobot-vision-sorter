@@ -4,17 +4,28 @@
 
 YOLOv8 인스턴스 세그멘테이션과 카메라-로봇 좌표 보정을 이용해 정상/불량 블록을 분류하고 Dobot으로 자동 배치하는 비전 기반 로봇 시스템입니다.
 
-> Portfolio status: 코드 안전성 및 재현성 개선 완료 · 새 데이터 기반 정량 평가는 진행 예정
+> Portfolio release v1.0 · 실제 장비 데모, 재현 가능한 코드 구조, 안전 가드 및 CI 검증 완료
+
+## At a glance
+
+| Area | Implementation |
+|---|---|
+| Hardware | Dobot Magician Lite, fixed camera, pneumatic gripper |
+| Vision | YOLOv8 instance segmentation, mask-based center and angle |
+| Calibration | Homography, object-height correction, held-out validation gate |
+| Control | Explicit state machine, one-object-per-scan, safe-height motion |
+| Safety | Raw target rejection, pick-zone filtering, grid capacity guard |
+| Evidence | 64.7-second hardware demo, 12 unit tests, passing GitHub Actions |
 
 ## Demo
 
-영상과 시스템 사진은 실제 재실험 후 추가할 예정입니다.
+<a href="assets/demo.mp4">
+  <img src="assets/demo-poster.jpg" alt="Dobot Magician Lite sorting colored blocks" width="360">
+</a>
 
-- `assets/demo.gif`: 전체 자동 선별 과정
-- `assets/system-overview.jpg`: 카메라·Dobot·작업 영역 구성
-- `assets/detection-result.jpg`: 마스크·클래스·각도 시각화
+대표 이미지를 누르면 64초 분량의 [실제 장비 동작 영상](assets/demo.mp4)이 열립니다. 영상은 Dobot Magician Lite, 고정 카메라, 작업 영역의 블록과 클래스별 분류함으로 구성된 프로토타입 환경을 보여줍니다.
 
-파일을 추가하는 방법은 [assets/README.md](assets/README.md)를 참고하세요.
+현재 영상은 물리 시스템의 동작 증거이며, 모델 정확도나 배치 정밀도를 입증하는 정량 실험은 아닙니다. 성능 수치의 측정 범위와 추가 자료 기준은 [assets/README.md](assets/README.md)에 구분해 두었습니다.
 
 ## Problem
 
@@ -44,6 +55,8 @@ flowchart LR
 - **Conservative failure handling**: 오류 발생 시 물체를 들고 있을 가능성이 있으면 임의 위치에 놓지 않고 자동 동작을 멈춥니다.
 
 자세한 설계와 안전 불변조건은 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)에 정리했습니다.
+선택한 방법의 이유와 대안은 [docs/ENGINEERING_DECISIONS.md](docs/ENGINEERING_DECISIONS.md)에 정리했습니다.
+문제·해결·검증 경계를 한 장으로 요약한 문서는 [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md)입니다.
 
 ## Repository structure
 
@@ -121,22 +134,15 @@ python scripts/run_sorter.py --config configs/local.yaml
 
 `Space`로 자동 선별을 시작/일시정지하고 `Q`로 종료합니다. 정밀 배치 피드백은 카메라 가림과 높이 보정 검증 후에만 `enabled: true`로 변경하세요.
 
-## Evaluation status
+## Validation and evidence
 
-기존 프로토타입의 검증 이미지는 학습 폴더에도 포함되어 있었기 때문에 과거 mAP는 최종 성능으로 사용하지 않습니다. 새로운 세션 기반 데이터로 아래 지표를 다시 측정할 예정입니다.
+- 실제 Dobot 장비의 반복 pick-and-place 동작을 영상으로 확인했습니다.
+- 하드웨어 없이 검증 가능한 좌표, 작업 영역, 데이터 누수, 그리드 용량 로직에 12개 단위 테스트를 적용했습니다.
+- GitHub Actions가 모든 push와 pull request에서 패키지 설치, 구문 검사, 테스트를 수행합니다.
+- 새 데이터 감사 도구가 기존 프로토타입의 train/valid 중복 이미지 10장을 검출하고 학습을 차단하는 것을 확인했습니다.
+- 캘리브레이션 파일은 보정에 사용하지 않은 좌표의 검증 기준을 통과해야 런타임에서 로드됩니다.
 
-| Category | Metric | Result |
-|---|---|---:|
-| Vision | mask mAP50 / mAP50-95 | TBD |
-| Vision | class-wise precision / recall / F1 | TBD |
-| Runtime | inference latency / FPS | TBD |
-| Calibration | held-out mean / P95 / max error | TBD |
-| Robot | pick success rate | TBD |
-| Robot | sorting accuracy | TBD |
-| Robot | placement position / angle error | TBD |
-| System | average cycle time | TBD |
-
-실험 기록 템플릿은 [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)에 있습니다.
+기존 프로토타입의 검증 이미지는 학습 폴더에도 포함되어 있었기 때문에 과거 mAP를 최종 성능으로 제시하지 않습니다. 이후 세션 기반 데이터로 비전·캘리브레이션·로봇 성공률을 측정할 때는 [실험 기록 템플릿](docs/EXPERIMENTS.md)을 사용합니다.
 
 ## What changed from the prototype
 
