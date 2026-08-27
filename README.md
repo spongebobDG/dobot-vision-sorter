@@ -6,6 +6,13 @@ YOLOv8 인스턴스 세그멘테이션과 카메라-로봇 좌표 보정을 이�
 
 > Portfolio release v1.0 · 실제 장비 데모, 재현 가능한 코드 구조, 안전 가드 및 CI 검증 완료
 
+| 구분 | 내용 |
+|---|---|
+| 구성 | 개인 프로젝트 |
+| 실기기 | Dobot Magician Lite, 고정 카메라, 공압 그리퍼 |
+| 대표 증거 | 64.7초 pick-and-place 영상, 단위 테스트 12개, GitHub Actions |
+| 포트폴리오 | [ROBOTIS 지원 포트폴리오 요약](https://github.com/spongebobDG/robotics-software-portfolio/blob/main/projects/dobot-vision-sorter.md) |
+
 ## At a glance
 
 | Area | Implementation |
@@ -166,6 +173,10 @@ python scripts/run_sorter.py --config configs/local.yaml
 ## Safety
 
 이 코드는 연구·교육용 프로토타입입니다. 실제 로봇 실행 전 저속 모드, 물리적 비상정지, 충돌 없는 작업 영역, 수동 복구 절차를 준비하고 로봇 주변을 비워야 합니다. 설정값을 검증하지 않은 상태에서 무인으로 실행하지 마세요.
+
+## ROBOTIS 직무 연결
+
+카메라 좌표를 로봇 좌표로 변환하는 것보다 중요한 것은 그 변환을 신뢰할 수 있는지 확인하는 일이었습니다. 보정 기준 미달과 작업영역 밖 목표를 실행 전에 거부한 경험을 바탕으로, 휴머노이드에서도 센서 입력과 액추에이터 명령 사이의 인터페이스를 검증하고 실패 시 안전한 상태를 유지하겠습니다.
 
 ## Dataset attribution
 
